@@ -1,5 +1,6 @@
 const std = @import("std");
 const mem = std.mem;
+const assert=std.debug.assert;
 const Buffer = std.Buffer;
 const builtin= @import("builtid");
 
@@ -45,4 +46,40 @@ test "Writer" {
     var w=try Writer.init(std.debug.global_allocator);
     try w.writeString("hello");
     w.deinit();
+}
+
+const Reader =struct{
+    buf: []const u8,
+    offset: usize,
+    pub const EOF =error.EOR;
+
+    pub fn init(buffer: []const u8) Reader{
+        return Reader{
+            .buf=buffer,
+            .offset=0,
+        };
+    }
+
+    pub fn empty(r : *Reader)bool{
+        return r.buf.len<=r.offset;
+    }
+
+    pub fn readByte(r: *Reader)!u8{
+        if (r.empty()){
+            return Reader.EOF;
+        }
+        const byte =r.buf[r.offset];
+        r.offset=r.offset+1;
+        return byte;
+    }
+};
+
+test "Reader" {
+    var r =Reader.init("");
+    assert(r.empty()==true);
+
+    r =Reader.init("abcd");
+    assert(r.empty()==false);
+    const a =try r.readByte();
+    assert(a=='a');
 }
