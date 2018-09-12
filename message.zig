@@ -72,6 +72,26 @@ const Reader =struct{
         r.offset=r.offset+1;
         return byte;
     }
+
+    pub fn readInt32() !i32{
+        if (r.empty()){
+            return Reader.EOF;
+        }
+        var buf :[4]u8 =undefined;
+        const v= mem.readIntBE(i32,r.buf[r.offset..r.offset+4]);
+        r.offset=r.offset+4;
+        return v;
+    }
+
+    pub fn readInt16() !i16{
+        if (r.empty()){
+            return Reader.EOF;
+        }
+        var buf :[4]u8 =undefined;
+        const v= mem.readIntBE(i16,r.buf[r.offset..r.offset+4]);
+        r.offset=r.offset+4;
+        return v;
+    }
 };
 
 test "Reader" {
