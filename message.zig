@@ -39,6 +39,14 @@ const Writer =struct{
         mem.writeInt(buf[0..],v,builtin.Endian.Big);
         try w.append(buf);
     }
+
+    pub fn toSlice(w: *Writer) []u8{
+        return w.buf.toSlice();
+    }
+
+    pub fn toSliceConst(w: *Writer) []u8{
+        return w.buf.toSliceConst();
+    }
 };
 
 
