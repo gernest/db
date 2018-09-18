@@ -44,7 +44,7 @@ const Writer =struct{
         return w.buf.toSlice();
     }
 
-    pub fn toSliceConst(w: *Writer) []u8{
+    pub fn toSliceConst(w: *Writer) []const u8{
         return w.buf.toSliceConst();
     }
 };
