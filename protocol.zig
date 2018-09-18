@@ -16,3 +16,13 @@ pub const TerminateMessageType       u8 = 'X'
 pub const NoticeMessageType          u8 = 'N'
 pub const PasswordMessageType        u8 = 'p'
 pub const ReadyForQueryMessageType   u8 = 'Z'
+
+
+pub const AuthenticationOk          i32 = 0;
+pub const AuthenticationKerberosV5  i32 = 2;
+pub const AuthenticationClearText   i32 = 3;
+pub const AuthenticationMD5         i32 = 5;
+pub const AuthenticationSCM         i32 = 6;
+pub const AuthenticationGSS         i32 = 7;
+pub const AuthenticationGSSContinue i32 = 8;
+pub const AuthenticationSSPI        i32 = 9;
